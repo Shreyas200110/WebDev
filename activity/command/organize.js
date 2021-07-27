@@ -3,9 +3,9 @@ let fs = require("fs");
 let path = require("path");
 
 let types = {
-    Media : [".mp4", '.mkv',".png",".jpeg",".jpg",""],
+    Media : [".mp4", '.mkv',".png",".jpeg",".jpg"],
     Archives : [".zip",".7z",".rar",".tar",".gz",".ar",".iso"],
-    Documents : [".doc",".docx",".pdf",".xlsx",".xls",".odt",".pptx",".ppt"],
+    Documents : [".doc",".docx",".pdf",".xlsx",".xls",".odt",".pptx",".ppt",".txt"],
     App : [".exe",".dmg",".pkg",".deb"]
 };
 
@@ -14,9 +14,20 @@ function fn(rPath)
 
     let currPath = rPath;
     let content = fs.readdirSync(currPath);
+    
+    let organizedFolderPath = path.join(rPath, "Organized_Folder");
+    fs.mkdirSync(organizedFolderPath);
+
     for(let i = 0;i < content.length;i++)
     {
         let currFile = content[i];
+        let currFilePath = path.join(currPath, currFile);
+        
+        if(fs.lstatSync(currFilePath).isDirectory() == true){
+            fn(currFilePath);
+            continue;
+        }
+
         let extName = path.extname(currFile);
         let eleType = "Other";
         for(const key in types)
@@ -34,7 +45,7 @@ function fn(rPath)
                 break;
             }
         }
-        let folderPath = path.join(currPath,eleType);
+        let folderPath = path.join(organizedFolderPath,eleType);
         let srcFilePath = path.join(currPath,currFile);
 
         let isFileExistes = fs.existsSync(folderPath);
@@ -46,7 +57,6 @@ function fn(rPath)
 
         fs.copyFileSync(srcFilePath,destFilePath);
         console.log(currFile, "belongs to --> ", eleType);
-        fs.unlinkSync(srcFilePath);
     }
 }
 
