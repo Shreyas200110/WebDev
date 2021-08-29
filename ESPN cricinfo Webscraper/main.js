@@ -2,6 +2,7 @@ let request = require("request");
 let cheerio = require("cheerio");
 let fs = require("fs");
 let path = require("path");
+let xlsx = require("xlsx");
 
 let url = "https://www.espncricinfo.com/series/ipl-2020-21-1210595";
 
@@ -143,18 +144,29 @@ function extractingPlayers(html, myteam, result, venue, date, opponentTeam){
             fs.mkdirSync(teamPath);
         }
 
-        let playerFilePath = path.join(teamPath, obj.name + ".json");
-        if(fs.existsSync(playerFilePath) == false){
-            let input = [];
-            input = JSON.stringify(input);
-            fs.writeFileSync(playerFilePath, input);
-        }
-
-        // First reading all content of JSON file
-        let content = fs.readFileSync(playerFilePath);
-        let jsonData = JSON.parse(content); // Converting that data into the readable format
-        jsonData.push(obj); // Pushing the object in the readable data
-        let jsonWritableData = JSON.stringify(jsonData); // Again converting that readable data into the JSON writable format
-        fs.writeFileSync(playerFilePath, jsonWritableData); // Writing that JSON data in the file
+        let playerFilePath = path.join(teamPath, obj.name + ".xlsx");
+        let content = excelReader(playerFilePath, obj.name);
+        content.push(obj);
+        excelWriter(playerFilePath, obj.name, content);
     }
+}
+
+// Function for reading the data from excel file
+function excelReader(filePath, sheetName){
+    if(fs.existsSync(filePath) == false){
+        return [];
+    }
+    let wb = xlsx.readFile(filePath);
+    let excelData = wb.Sheets[sheetName];
+    let ans = xlsx.utils.sheet_to_json(excelData);
+    return ans;
+}
+
+
+// Function for writing the data into excel file
+function excelWriter(filePath, sheetName, json){
+    let newWb = xlsx.utils.book_new();
+    let newWs = xlsx.utils.json_to_sheet(json);
+    xlsx.utils.book_append_sheet(newWb, newWs, sheetName);
+    xlsx.writeFile(newWb, filePath);
 }
