@@ -3,6 +3,8 @@ const prompt = require("prompt-sync")(); // Module for taking input from user
 const path = require("path"); // Module for working with paths
 const PDFDocument = require("pdfkit"); // Module for working with pdf files
 const fs = require("fs"); // Module for working with files and folders 
+const { page } = require("pdfkit");
+const { info } = require("console");
 
 // This is the main Scrapper function 
 (async function Scrapper(){
@@ -38,8 +40,8 @@ const fs = require("fs"); // Module for working with files and folders
             questionNamesArr[i] = question.trim();
             linksArr[i] = link.trim();
         }
-
-        writePDFDocument(inputObj, questionNamesArr, linksArr);
+        questionInfo(browser, linksArr, inputObj, questionNamesArr);
+        // writePDFDocument(inputObj, questionNamesArr, linksArr, infoArr);
     }
     catch(err){
         console.log(err);
@@ -153,8 +155,37 @@ function makeUrl(inputObj){
     return url;
 }
 
+// This Function scrapes all the information from a particular question page
+async function questionInfo(browser, linksArr, inputObj, questionNamesArr){
+    try{
+        let infoArr = [];
+
+        for(let i = 0; i < linksArr.length; i++){
+            let newPage = await browser.newPage();
+            await newPage.goto(linksArr[i]);
+            await newPage.waitForSelector(".problem-tab__value");
+
+            let arr = await newPage.$$(".problem-tab__value");
+            let obj = await newPage.evaluate(function(element1, element2){
+                return obj = {
+                    "Accuracy" : element1.textContent.trim(),
+                    "Submissions" : element2.textContent.trim()
+                }
+            }, arr[0], arr[1]);
+
+            infoArr.push(obj);
+            await newPage.close();
+        }
+
+        writePDFDocument(inputObj, questionNamesArr, linksArr, infoArr);
+    }
+    catch(err){
+        console.log(err);   
+    }
+}
+
 // This function is used to write the scrapped data into a ".pdf" file
-function writePDFDocument(inputObj, questionNamesArr, linksArr) {
+function writePDFDocument(inputObj, questionNamesArr, linksArr, infoArr) {
 
     let pdfDoc = new PDFDocument;
     let locationPath = "";
@@ -189,12 +220,26 @@ function writePDFDocument(inputObj, questionNamesArr, linksArr) {
         pdfDoc.moveDown(1);
     }   
     
-    pdfDoc.fillColor('#399191');
     for(let i = 0; i < questionNamesArr.length; i++){
-        pdfDoc.text(i + 1 + ".  " + questionNamesArr[i], {
+        pdfDoc
+        .fontSize(12)
+        .fillColor('#399191')
+        .text(i + 1 + ".  " + questionNamesArr[i], {
             width: 500,
             link: linksArr[i]
         });
+
+        pdfDoc
+        .fontSize(10)
+        .fillColor('black')
+        .text('     Accuracy : ' + infoArr[i].Accuracy);
+
+        pdfDoc
+        .fontSize(10)
+        .fillColor('black')
+        .text('     Submissions : ' + infoArr[i].Submissions);
+
+        pdfDoc.moveDown(1);
     }
     pdfDoc.end();
 }  
