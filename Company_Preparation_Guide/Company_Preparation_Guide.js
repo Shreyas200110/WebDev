@@ -82,7 +82,7 @@ function takeInputFromUser(){
     let companyYesOrNo = prompt("Do You want to select any Specific comapany (Yes / No) ? ");
     let companyName = "";
     if(companyYesOrNo == "Yes"){
-        companyName = prompt("Okay...Enter company Name - ")
+        companyName = prompt("***** Okay...Enter company Name - ")
     }
     else{
         companyName = null;
@@ -92,7 +92,7 @@ function takeInputFromUser(){
     let difficulty = "";
 
     if(difficultyYesOrNo == "Yes"){
-        difficulty = prompt("Okay...Enter difficulty level - ");
+        difficulty = prompt("***** Okay...Enter difficulty level - ");
     }
     else{
         difficulty = null;
@@ -102,7 +102,7 @@ function takeInputFromUser(){
     let topic = "";
 
     if(topicYesOrNo == "Yes"){
-        topic = prompt("Okay...Enter the topic - ");
+        topic = prompt("***** Okay...Enter the topic - ");
     }
     else{
         topic = null;
