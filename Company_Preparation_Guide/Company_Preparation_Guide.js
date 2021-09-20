@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer"); // Module for Chromium Automation
 const prompt = require("prompt-sync")(); // Module for taking input from user
 const path = require("path"); // Module for working with paths
 const PDFDocument = require("pdfkit"); // Module for working with pdf files
@@ -17,9 +17,9 @@ const fs = require("fs"); // Module for working with files and folders
         let page = pagesArr[0];
         await page.goto("https://practice.geeksforgeeks.org/explore/");
 
-        await page.click(".cc-compliance");
-        await page.click(".clearFilters");
-        await page.click("#moreCompanies");    
+        await page.click(".cc-compliance", {delay : 100});
+        await page.click(".clearFilters", {delay:100});
+        await page.click("#moreCompanies", {delay:100});    
 
         let inputObj = takeInputFromUser();
 
