@@ -74,7 +74,7 @@ async function autoScroll(page){
                     clearInterval(timer);
                     resolve();
                 }
-            }, 300);
+            }, 200);
         });
     });
 }
