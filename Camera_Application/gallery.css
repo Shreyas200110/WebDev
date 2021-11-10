@@ -1,0 +1,72 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.gallery-cont{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.media-cont{
+    height: 15rem;
+    width: 15rem;
+    margin: 2rem;
+}
+
+.gallery-actions-cont{
+    height: 1rem;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.delete-button{
+    margin-left: 0.5rem;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 50%;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-button{
+    margin-left: 0.5rem;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 50%;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete{
+    font-size: 0.8rem;
+    padding: 0.2rem;
+}
+
+.download{
+    font-size: 0.8rem;
+    padding: 0.2rem;
+}
+
+.media {
+    height: calc( 100% - 2rem);
+}
+.media > * {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
