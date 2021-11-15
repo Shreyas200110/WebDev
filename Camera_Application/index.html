@@ -8,7 +8,7 @@
     <title>Camera</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./style.css">
     
 </head>
@@ -22,18 +22,18 @@
     </div>
     <div class="actions-cont">
         <div class="zoom-actions">
-            <div class="zoom-in"><i class="fas fa-plus"></i></div>
-            <div class="zoom-out"><i class="fas fa-minus"></i></div>
+            <div class="zoom-in cursor-pointer"><i class="fas fa-plus"></i></div>
+            <div class="zoom-out cursor-pointer"><i class="fas fa-minus"></i></div>
         </div>
-        <div class="gallery-button">
+        <div class="gallery-button cursor-pointer">
             <i class="fas fa-images"></i> Gallery
         </div>
         
         <div class="camera-actions">
-            <div class="camera-shutter-cont">
+            <div class="camera-shutter-cont cursor-pointer">
                 <i class="fas fa-camera camera-shutter"></i>
             </div>
-            <div class="record-shutter-cont">
+            <div class="record-shutter-cont cursor-pointer">
                 <i class="fas fa-video record-shutter"></i>
             </div>
         </div>
@@ -42,26 +42,41 @@
             <h1 class="timer">00:00:00</h1>
         </div>
 
-        <div class="filter-button">Filters</div>
+        <div class="filter-button cursor-pointer">Filters</div>
     </div>
     <div class="filters-cont">
-        <div class="filter pink"></div>
-        <div class="filter blue"></div>
-        <div class="filter yellow"></div>
-        <div class="filter transparent"></div>
+        <div class="filter pink cursor-pointer"></div>
+        <div class="filter blue cursor-pointer"></div>
+        <div class="filter yellow cursor-pointer"></div>
+        <div class="filter transparent cursor-pointer"></div>
     </div>
 
-    <div class="capture-timer-cont">
+    <div class="capture-timer-cont cursor-pointer">
         <span class="material-icons capture-timer">timer</span>
     </div>
 
-    <div class="grid-icon-cont">
+    <div class="grid-icon-cont cursor-pointer">
         <span class="material-icons">grid_off</span>
+    </div>
+
+    <div class="pop-up-cont">
+        <div class="pop-up-text">Enter File Name : </div>
+        <input class="pop-up-input" type="text">
+        <div class="save-button-cont">
+            <span class="material-icons save">save</span>
+            SAVE
+        </div>
+    </div>
+
+    <div class="notification-cont">
+        PHOTO CAPTURED
+        <span class="material-icons notify-check">done</span>
     </div>
 
     <script src="https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js"></script>
     <script src="./db.js"></script>
     <script src="./script.js"></script>
+    
     <script>
         let galleryButton = document.querySelector(".gallery-button");
         galleryButton.addEventListener("click", (e) => {

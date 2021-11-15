@@ -1,4 +1,7 @@
 let galleryCont = document.querySelector(".gallery-cont");
+let collectionsCont = document.querySelector(".collections-cont");
+let photosCont = document.querySelector(".photos-cont");
+let videosCont = document.querySelector(".videos-cont");
 
 setTimeout(() => {
     if(db){
@@ -16,21 +19,25 @@ setTimeout(() => {
                 mediaCont.setAttribute("id", videoObj.id);
     
                 let videoUrl = URL.createObjectURL(videoObj.blobData);
+                mediaCont.classList.add("type-video");
                 mediaCont.innerHTML = `
                     <div class="gallery-actions-cont">
                         <div class="delete-button">
-                            <span class="material-icons delete">close</span>
+                            <span class="material-icons delete">delete</span>
                         </div>
+
                         <div class="download-button">
                             <span class="material-icons download">download</span>
                         </div>
                     </div>
-    
+
                     <div class="media">
                         <video autoplay loop src="${videoUrl}"></video>
                     </div>
+                    <div class="media-name">${videoObj.name}</div>
                 `;
                 galleryCont.appendChild(mediaCont);
+                handleBlurOnMedia(mediaCont);
 
                 let deleteButton = mediaCont.querySelector(".delete-button");
                 deleteButton.addEventListener("click", handleDelete);
@@ -40,7 +47,6 @@ setTimeout(() => {
             })
         }   
     
-
         // For displaying images
         let imageDBtransaction = db.transaction("image", "readonly");
         let imageStore = imageDBtransaction.objectStore("image");
@@ -52,23 +58,27 @@ setTimeout(() => {
             imageResult.forEach((imageObj) => {
                 let mediaCont = document.createElement("div");
                 mediaCont.setAttribute("class", "media-cont");
+                mediaCont.classList.add("type-image");
                 mediaCont.setAttribute("id", imageObj.id);
                 let imageUrl = imageObj.url;
                 mediaCont.innerHTML = `
                     <div class="gallery-actions-cont">
                         <div class="delete-button">
-                            <span class="material-icons delete">close</span>
+                            <span class="material-icons delete">delete</span>
                         </div>
+
                         <div class="download-button">
                             <span class="material-icons download">download</span>
                         </div>
                     </div>
-    
+
                     <div class="media">
                         <img src="${imageUrl}" />
                     </div>
+                    <div class="media-name">${imageObj.name}</div>
                 `;
                 galleryCont.appendChild(mediaCont);
+                handleBlurOnMedia(mediaCont);
 
                 let deleteButton = mediaCont.querySelector(".delete-button");
                 deleteButton.addEventListener("click", handleDelete);
@@ -76,7 +86,7 @@ setTimeout(() => {
                 let downloadButton = mediaCont.querySelector(".download-button");
                 downloadButton.addEventListener("click", handleDownload);
             })
-        } 
+        }
     }
 }, 100);
 
@@ -134,3 +144,50 @@ function handleDownload(e){
         }
     }
 }
+
+
+function handleBlurOnMedia(mediaCont){
+    let media = mediaCont.querySelector(".media");
+    let galleryActionsCont = mediaCont.querySelector(".gallery-actions-cont");
+    mediaCont.addEventListener("mouseover", (e) => {
+        media.classList.add("blur-on-media");
+        galleryActionsCont.style.display = "flex";
+    })
+
+    mediaCont.addEventListener("mouseout", (e) =>{
+        media.classList.remove("blur-on-media");
+        galleryActionsCont.style.display = "none";
+    })
+}
+
+collectionsCont.addEventListener("click", (e) => {
+    let allMedias = document.querySelectorAll(".media-cont");
+    for(let i = 0; i < allMedias.length; i++){
+        allMedias[i].style.display = "block";
+    }
+});
+
+photosCont.addEventListener("click", (e) => {
+    let allMedias = document.querySelectorAll(".media-cont");
+    for(let i = 0; i < allMedias.length; i++){
+        if(allMedias[i].classList.contains("type-image") == true){
+            allMedias[i].style.display = "block";
+        }
+        else{
+            allMedias[i].style.display = "none";
+        }
+    }
+});
+
+videosCont.addEventListener("click", (e) =>{
+    let allMedias = document.querySelectorAll(".media-cont");
+
+    for(let i = 0; i < allMedias.length; i++){
+        if(allMedias[i].classList.contains("type-video") == true){
+            allMedias[i].style.display = "block";
+        }
+        else{
+            allMedias[i].style.display = "none";
+        }
+    }
+});
