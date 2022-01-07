@@ -12,6 +12,8 @@
 
 
 ![img](https://i.ibb.co/5Lw9DxC/Screenshot-2022-01-07-at-2-36-51-PM.png)
+
+##Features :
 ### 1. Multiple Sheets Handling :
 - User could create and work upon Multiple Sheets at the same time.
 - User could just switch beetween the sheets via a single click.
