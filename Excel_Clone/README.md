@@ -21,7 +21,7 @@
 - User can use the formulas just as in Microsoft Excel.
 - The application also supports the dependent formulas i.e we can enter the formula that is using the value of other cell.
 - The two way binding is used so that if one cells value is used then all the cells that were dependent on it also changes their value.
-- Example - Formula of cell A2 = (A1 + 10 / 3).
+- Example: Formula of cell A2 = (A1 + 10 / 3).
 ![img](https://i.ibb.co/XS1cGmg/ezgif-2-67848cf63d.gif)
 ### 3. Cyclic formula Detection (Graph Data Structure):
 - If the User tries to enter the cyclic formula he will be notified via an alert.
