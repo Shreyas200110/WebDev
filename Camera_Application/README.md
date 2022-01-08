@@ -15,8 +15,8 @@
 ## Features : 
 
 ### 1. Filters :
-- User can click the photos and videos with various filters that are available.
 - To capture the photos Canvas API has been used.
+- User can click the photos and videos with various filters that are available.
 ![img](https://github.com/Shreyas200110/WebDev/blob/master/Camera_Application/ReadmeImages/feature1.gif)
 
 ### 2. Zoom in & Zoom out :
