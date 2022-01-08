@@ -38,49 +38,49 @@ let constraints = {
 
 handleSave();
 
-// navigator.mediaDevices.getUserMedia(constraints)
-// .then((stream) => {
-//     video.srcObject = stream;
-//     recorder = new MediaRecorder(stream);
+navigator.mediaDevices.getUserMedia(constraints)
+.then((stream) => {
+    video.srcObject = stream;
+    recorder = new MediaRecorder(stream);
 
-//     recorder.addEventListener("start", (e) => {
-//         chunks = [];
-//         isPhoto = false;
-//     })
+    recorder.addEventListener("start", (e) => {
+        chunks = [];
+        isPhoto = false;
+    })
 
-//     recorder.addEventListener("dataavailable", (e) => {
-//         chunks.push(e.data);
-//     })
+    recorder.addEventListener("dataavailable", (e) => {
+        chunks.push(e.data);
+    })
 
-//     recorder.addEventListener("stop", (e) => {
-//         // Conversion of media chunks data to video
-//         let blob = new Blob(chunks, { type: "video/mp4" });
-//         GlobalBlobForVideo = blob;
-//         let videoUrl = URL.createObjectURL(blob);
+    recorder.addEventListener("stop", (e) => {
+        // Conversion of media chunks data to video
+        let blob = new Blob(chunks, { type: "video/mp4" });
+        GlobalBlobForVideo = blob;
+        let videoUrl = URL.createObjectURL(blob);
 
-//         let a = document.createElement("a");
-//         a.href = videoUrl;
-//         a.download = "stream.mp4";
-//         a.click();
+        // let a = document.createElement("a");
+        // a.href = videoUrl;
+        // a.download = "stream.mp4";
+        // a.click();
 
-//         //For notification
-//         notificationCont.innerHTML = `
-//             VIDEO CAPTURED
-//             <span class="material-icons notify-check">done</span>
-//         `;
-//         notificationCont.style.display = "flex";
-//         notificationCont.classList.add("fade-out-opacity");
-//         setTimeout(() => {
-//             notificationCont.style.display = "none";
-//             notificationCont.classList.remove("fade-out-opacity");
-//         }, 1000);
+        //For notification
+        notificationCont.innerHTML = `
+            VIDEO CAPTURED
+            <span class="material-icons notify-check">done</span>
+        `;
+        notificationCont.style.display = "flex";
+        notificationCont.classList.add("fade-out-opacity");
+        setTimeout(() => {
+            notificationCont.style.display = "none";
+            notificationCont.classList.remove("fade-out-opacity");
+        }, 1000);
 
-//         //For pop-up
-//         popUpCont.style.display = "block";
-//         videoCont.classList.add("blur");
-//         actionCont.classList.add("blur");
-//     })
-// })
+        //For pop-up
+        popUpCont.style.display = "block";
+        videoCont.classList.add("blur");
+        actionCont.classList.add("blur");
+    })
+})
 
 recordShutterCont.addEventListener("click", (e) => {
     if(!recorder) return;
@@ -134,10 +134,10 @@ cameraShutterCont.addEventListener("click", (e) => {
     }, 1000);
 
     handleSave(imageURL);
-    let a = document.createElement("a");
-    a.href = imageURL;
-    a.download = "image.jpg";
-    a.click();
+    // let a = document.createElement("a");
+    // a.href = imageURL;
+    // a.download = "image.jpg";
+    // a.click();
 
     setTimeout(() => {
         cameraShutter.classList.remove("scale-capture");
